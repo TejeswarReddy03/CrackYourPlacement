@@ -1,0 +1,32 @@
+## SubArray Sum Divisible By K
+
+https://leetcode.com/problems/subarray-sums-divisible-by-k/
+
+class Solution {
+public:
+    int subarraysDivByK(vector<int>& nums, int k) {
+
+        int sum=0;
+        unordered_map<int,int> arr;
+        int count=0;
+        arr[0]=1;
+        for(int i=0;i<nums.size();i++){
+            sum+=nums[i];
+            int mod=sum%k;
+            cout<<mod<<endl;
+            if(mod<0){
+                mod+=k;
+            }
+            cout<<mod<<"second"<<endl;
+            if(arr[mod]){
+                count+=arr[mod];
+                // cout<<sum<<endl;
+            }
+
+            arr[mod]+=1;
+
+        }
+        return count;
+        
+    }
+};
