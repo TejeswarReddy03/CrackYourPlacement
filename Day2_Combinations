@@ -1,0 +1,39 @@
+## Combinations 
+
+https://leetcode.com/problems/combinations/
+
+
+class Solution {
+public:
+
+    set<vector<int>> ans;
+    void helper(vector<int>& nums, int index,vector<int> k,int sum){
+      if(sum<0){
+        return;
+      }
+        if(index==nums.size()){
+          
+            if(sum==0){
+        ans.insert(k);
+            }
+        return ;
+        }
+        // int take=;
+        k.push_back(nums[index]);
+        // ans.push_back(k);
+         helper(nums,index+1,k,sum-nums[index]);
+        k.pop_back();
+
+        helper(nums,index+1,k,sum);
+
+    }
+   vector<vector<int>> combinationSum2(vector<int>& nums, int target) {
+        vector<int> k;
+      sort(nums.begin(),nums.end());
+        helper(nums,0,k,target);
+         vector<vector<int>> x(ans.begin(),ans.end());
+
+        
+        return x;
+    }
+};
