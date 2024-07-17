@@ -1,0 +1,34 @@
+## Permutations II
+
+https://leetcode.com/problems/permutations-ii/
+
+class Solution {
+public:
+    set<vector<int>> ans;
+    void helper(vector<int> &nums,int index,int n,vector<int> &k){
+        if(index==n){
+            ans.insert(k);
+            return;
+            
+        }
+        for(int i=0;i<n;i++){
+            if(nums[i]!=INT_MAX){
+            k.push_back(nums[i]);
+            int kk=nums[i];
+            nums[i]=INT_MAX;
+            helper(nums,index+1,n,k);
+             nums[i]=kk;
+            k.pop_back();
+            }
+        }
+
+    }
+    
+    vector<vector<int>> permuteUnique(vector<int>& nums) {
+        int n=nums.size();
+        vector<int> k;
+        helper(nums,0,n,k);
+        vector<vector<int>> ans2(ans.begin(),ans.end());
+        return ans2;
+    }
+};
