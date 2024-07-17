@@ -1,0 +1,32 @@
+## Subsets II
+
+https://leetcode.com/problems/subsets-ii/
+
+class Solution {
+public:
+    set<vector<int>> ans;
+
+    void helper(int index,vector<int> &nums, int n,vector<int> & k){
+        if(index==n){
+            
+            ans.insert(k);
+            return;
+        }
+        k.push_back(nums[index]);
+        helper(index+1,nums,n,k);
+        k.pop_back();
+        helper(index+1,nums,n,k);
+
+
+    }
+    vector<vector<int>> subsetsWithDup(vector<int>& nums) {
+        int n=nums.size();
+        sort(nums.begin(),nums.end());
+        vector<int> k;
+
+        helper(0,nums,n,k);
+        vector<vector<int>> ans2(ans.begin(),ans.end());
+        return ans2;
+
+    }
+};
