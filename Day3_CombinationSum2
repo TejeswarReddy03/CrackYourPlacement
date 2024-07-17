@@ -1,0 +1,42 @@
+## Combination Sum II
+
+https://leetcode.com/problems/combination-sum-ii/
+
+
+class Solution {
+public:
+
+    set<vector<int>> ans;
+    void helper(vector<int>& nums, int index,vector<int> &k,int sum){
+      if(sum<0){
+        return;
+      }
+      if(sum==0){
+        ans.insert(k);
+        return;
+            }
+            int n=nums.size();
+        if(index==n){
+          
+            
+        return ;
+        }
+        // int take=;
+        k.push_back(nums[index]);
+        // ans.push_back(k);
+         helper(nums,index+1,k,sum-nums[index]);
+        k.pop_back();
+        while(index<nums.size()-1 && nums[index]==nums[index+1]) index++;
+        helper(nums,index+1,k,sum);
+
+    }
+   vector<vector<int>> combinationSum2(vector<int>& nums, int target) {
+        vector<int> k;
+      sort(nums.begin(),nums.end());
+        helper(nums,0,k,target);
+         vector<vector<int>> x(ans.begin(),ans.end());
+
+        
+        return x;
+    }
+};
