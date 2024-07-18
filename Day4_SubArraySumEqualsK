@@ -1,0 +1,27 @@
+## Sub Array Sum Equals K
+
+https://leetcode.com/problems/subarray-sum-equals-k/
+
+class Solution {
+public:
+ 
+    int subarraySum(vector<int>& a, int k) {
+        
+           unordered_map<int,int> arr;
+           int N=a.size();
+         
+        int sum=0,ans=0;
+        arr[0]=1;
+        for(int i=0;i<N;i++){
+             sum+=a[i];
+             int x=sum-k;
+             ans+=arr[x];
+          arr[sum]+=1;
+            
+           
+        }
+       
+        return ans;
+    }
+    
+};
