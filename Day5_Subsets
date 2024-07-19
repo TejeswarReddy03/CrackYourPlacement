@@ -1,0 +1,33 @@
+## Subsets
+
+https://leetcode.com/problems/subsets/
+
+class Solution {
+public:
+
+    set<vector<int>> ans;
+    void helper(vector<int>& nums, int index,vector<int> k){
+        if(index==nums.size()){
+            // k.push_back(nums[index]);
+        ans.insert(k);
+        return ;
+        }
+        // int take=;
+        k.push_back(nums[index]);
+        // ans.push_back(k);
+         helper(nums,index+1,k);
+        k.pop_back();
+
+        helper(nums,index+1,k);
+
+    }
+    vector<vector<int>> subsets(vector<int>& nums) {
+        vector<int> k;
+        // ans.push_back(k);
+        helper(nums,0,k);
+         vector<vector<int>> ans2(ans.begin(),ans.end());
+
+        
+        return ans2;
+    }
+};
