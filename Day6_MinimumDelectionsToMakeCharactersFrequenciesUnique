@@ -1,0 +1,43 @@
+## Day6_MinimumDelectionsToMakeCharactersFrequenciesUnique
+
+https://leetcode.com/problems/minimum-deletions-to-make-character-frequencies-unique/
+
+class Solution {
+public:
+    int minDeletions(string s) {
+        unordered_map<char,int> mapper;
+        for(auto x:s){
+            mapper[x]+=1;
+        }
+        // cout<<mapper.size();
+        priority_queue<int> pq;
+        unordered_map<int,int> set1;
+        for(auto a:mapper){
+            pq.push(a.second);
+            set1[a.second]+=1;
+        }
+        
+
+        int ans=0;
+        while(pq.size()!=0){
+            int y=pq.top();
+            int y2=y;
+            while(set1[y]!=1){
+                y2--;
+                if(set1[y2]==0 || y2==0){
+                    set1[y2]=1;
+                    cout<<y2<<endl;
+                    ans+=y-y2;
+                    set1[y]--;
+                    y2=y;
+                    
+                }
+            }
+
+            pq.pop();
+        }
+        return ans;
+
+        
+    }
+};
