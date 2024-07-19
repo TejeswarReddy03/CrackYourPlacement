@@ -1,0 +1,30 @@
+## Group Anagrams
+
+https://leetcode.com/problems/group-anagrams/
+
+class Solution {
+public:
+    vector<vector<string>> groupAnagrams(vector<string>& strs) {
+        vector<vector<string>> ans;
+        vector<string> strs2=strs;
+      
+     
+        unordered_map<string,vector<string>> b;
+        for(int i=0;i<strs.size();i++){
+            string x=strs[i];
+            sort(x.begin(),x.end());
+           b[x].push_back(strs[i]);
+        }
+
+        for(auto x:b){
+            vector<string> sub_ans;
+            auto y=x.second;
+           
+            ans.push_back(y);
+        }
+
+        return ans;
+        
+
+    }
+};
