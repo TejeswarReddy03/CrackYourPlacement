@@ -1,0 +1,50 @@
+## Remove K Digits
+
+https://leetcode.com/problems/remove-k-digits/
+
+class Solution {
+public:
+    string removeKdigits(string num, int k) {
+        if(k==num.size()){
+            return "0";
+        }
+        int n=num.size();
+        string ans="";
+        stack<char> s;
+        s.push(num[0]);
+
+        for(int i=1;i<n;i++){
+            while(!s.empty() && s.top()>num[i] && k>0){
+                s.pop();
+                k--;
+            }
+            s.push(num[i]);
+        }
+        while(!s.empty()){
+            ans+=s.top();
+            s.pop();
+        }
+        if(k>0){
+            ans.erase(0,k);
+        }
+        reverse(ans.begin(),ans.end());
+        int j=0;
+        cout<<ans<<endl;
+        while(ans[j]=='0'){
+             cout<<j<<endl;
+            j++;
+             cout<<j<<endl;
+        }
+       
+      string  f_ans="";
+        for(int kk=j;kk<ans.size();kk++){
+            f_ans+=ans[kk];
+
+        }
+        if(f_ans.size()==0){
+            return "0";
+        }
+            return f_ans;
+
+    }
+};
