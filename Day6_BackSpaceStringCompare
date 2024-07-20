@@ -1,0 +1,46 @@
+## Back Space String Compare
+
+https://leetcode.com/problems/backspace-string-compare/
+
+class Solution {
+public:
+    bool backspaceCompare(string ss, string tt) {
+        stack<char> s;
+         stack<char> t;
+        for(auto x:ss){
+            if(!s.empty() && x=='#'){
+                s.pop();
+            }
+            if(x!='#'){
+            s.push(x);
+            }
+        }
+        for(auto y:tt){
+           if(!t.empty() && y=='#'){
+                t.pop();
+            }
+             if(y!='#'){
+            t.push(y);
+            }
+        }
+     if(s.size()!=t.size()){
+        return false;
+     }
+
+    int len=s.size();
+    cout<<len;
+    while(len!=0){
+        if(s.top()!=t.top()){
+            cout<<s.top()<<t.top();
+            return false;
+        }
+        s.pop();
+        t.pop();
+        len--;
+    }
+
+return true;
+       
+        
+    }
+};
