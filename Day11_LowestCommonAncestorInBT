@@ -1,0 +1,82 @@
+## Lowest Common Ancestor in a Binary Tree
+
+https://leetcode.com/problems/lowest-common-ancestor-of-a-binary-tree/
+
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
+ * };
+ */
+class Solution {
+public:
+int v1=0,v2=0;
+    void helper(TreeNode* root, TreeNode* p, TreeNode* q,TreeNode* lca, int &v1, int &v2){
+        if(root==NULL){
+            return;
+        }
+        if(root->val!=p->val && root->val!=q->val){
+             helper(root->left,p,q,lca,v1,v2);
+          helper(root->right,p,q,lca,v1,v2);
+
+        }   if(lca->val==p->val && root->val==q->val){
+             lca=p;
+            return ;
+
+        }
+         if(lca->val==q->val && root->val==p->val){
+            lca=q;
+            return ;
+
+        }
+        if(root->val==p->val && v2==0){
+            v1=1;
+       helper(root->left,p,q,p,v1,v2);
+          helper(root->right,p,q,p,v1,v2);
+        }
+        else if(root->val==p->val && v2==1){
+            lca=q;
+            return;
+        }
+        if(root->val==q->val && v1==1){
+            v2=1;
+           helper(root->left,p,q,q,v1,v2);
+          helper(root->right,p,q,q,v1,v2);
+        }
+        else if(root->val==q->val && v1==1){
+            lca=p;
+            return;
+        }
+     
+   }
+        
+    
+
+    TreeNode* lowestCommonAncestor(TreeNode* root, TreeNode* p, TreeNode* q) {
+        //  TreeNode* lca=root;
+
+        if(root==NULL){
+            return NULL;
+        }
+        if(root->val==p->val ||root->val==q->val){
+            return root;
+        }
+        TreeNode* left = lowestCommonAncestor(root->left,p,q);
+        TreeNode* right = lowestCommonAncestor(root->right,p,q);
+        if(left!=NULL && right!=NULL)
+        {
+            return root;
+        }
+        if(left!=NULL){
+            return left;
+        }
+        if(right!=NULL){
+            return right;
+        }
+        return NULL;
+      
+    }
+};
