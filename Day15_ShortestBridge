@@ -1,0 +1,93 @@
+##Shortest Bridge
+
+https://leetcode.com/problems/shortest-bridge/
+
+class Solution {
+public:
+    bool isValid(int m, int n, int i, int j){
+        return i>=0 && j>=0 && i<m && j<n;
+    }
+    queue<pair<int,pair<int,int>>> q;
+    void dfs(vector<vector<int>>& grid, vector<vector<int>>& vis, int i, int j){
+        if(vis[i][j]==0){
+        vis[i][j]=1;
+        q.push({0,{i,j}});
+        int m=grid.size();
+        if(isValid(m,m,i+1,j) && grid[i+1][j]==1){
+            dfs(grid,vis,i+1,j);
+        }
+        if(isValid(m,m,i,j+1) && grid[i][j+1]==1 ){
+            dfs(grid,vis,i,j+1);
+        }
+        if(isValid(m,m,i-1,j) && grid[i-1][j]==1){
+            dfs(grid,vis,i-1,j);
+        }
+        if(isValid(m,m,i,j-1) && grid[i][j-1]==1){
+            dfs(grid,vis,i,j-1);
+        }
+        }
+        
+    }
+    int shortestBridge(vector<vector<int>>& grid) {
+        int m=grid.size(), n=grid.size();
+        vector<vector<int>> vis(m,vector(n,0));
+        bool flag=false;
+        for(int i=0;i<m;i++){
+            for(int j=0;j<n;j++){
+                if(vis[i][j]==0 && grid[i][j]==1){
+                    dfs(grid,vis,i,j);
+                    flag=true;
+                    break;
+                }
+            }
+            if(flag){
+                break;
+            }
+        }
+        int ans=INT_MAX;
+        while(!q.empty()){
+            int x=q.front().second.first;
+            int y=q.front().second.second;
+            int dis=q.front().first;
+            q.pop();
+            if(isValid(m,m,x+1,y) && grid[x+1][y]==0 && vis[x+1][y]==0){
+                vis[x+1][y]=1;
+                q.push({dis+1,{x+1,y}});
+            }
+            else if(isValid(m,m,x+1,y) && grid[x+1][y]==1 && vis[x+1][y]==0){
+                // ans=min(ans,dis);
+                return dis;
+            }
+             if(isValid(m,m,x,y+1)&& grid[x][y+1]==0 && vis[x][y+1]==0){
+                 vis[x][y+1]=1;
+                q.push({dis+1,{x,y+1}});
+            }
+             else if(isValid(m,m,x,y+1) && grid[x][y+1]==1 && vis[x][y+1]==0){
+                // ans=min(ans,dis);
+                return dis;
+            }
+             if(isValid(m,m,x-1,y)&& grid[x-1][y]==0 && vis[x-1][y]==0){
+                 vis[x-1][y]=1;
+                q.push({dis+1,{x-1,y}});
+            }
+             else if(isValid(m,m,x-1,y) && grid[x-1][y]==1 && vis[x-1][y]==0){
+                // ans=min(ans,dis);
+                return dis;
+            }
+             if(isValid(m,m,x,y-1)&& grid[x][y-1]==0 && vis[x][y-1]==0){
+                 vis[x][y-1]=1;
+                q.push({dis+1,{x,y-1}});
+            }
+             else if(isValid(m,m,x,y-1) && grid[x][y-1]==1 && vis[x][y-1]==0){
+                // ans=min(ans,dis);
+                return dis;
+            }
+        
+        }
+
+
+        return ans;
+
+        
+    }
+};
