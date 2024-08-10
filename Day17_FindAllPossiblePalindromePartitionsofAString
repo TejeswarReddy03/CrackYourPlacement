@@ -1,0 +1,74 @@
+## Find All Possible Palindromic Partitions of a String
+
+https://www.geeksforgeeks.org/problems/find-all-possible-palindromic-partitions-of-a-string/1
+
+//{ Driver Code Starts
+#include <bits/stdc++.h>
+using namespace std;
+
+// } Driver Code Ends
+//User function Template for C++
+
+class Solution {
+  public:
+    
+     vector<vector<string>> ans;
+    bool isPalindrome(string s){
+        string y=s;
+        reverse(s.begin(),s.end());
+        return y==s;
+    }
+
+    void helper(string &s, string k, int index, vector<string> &a){
+        if(index==s.size()){
+            ans.push_back(a);
+            return;
+        }
+        string b="";
+        for(int i=index;i<s.size();i++){
+            b+=s[i];
+            if(isPalindrome(b)){
+                a.push_back(b);
+                helper(s,k,i+1,a);
+                a.pop_back();
+            }
+
+        }
+        
+
+
+    }
+  
+    vector<vector<string>> allPalindromicPerms(string S) {
+        // code here
+        string k="";
+        vector<string> a1;
+        helper(S,k,0,a1);
+        return ans;
+    }
+};
+
+//{ Driver Code Starts.
+int main() {
+    int t;
+    cin >> t;
+    while (t--) {
+        string S;
+        
+        cin>>S;
+
+        Solution ob;
+        vector<vector<string>> ptr = ob.allPalindromicPerms(S);
+        
+        for(int i=0; i<ptr.size(); i++)
+        {
+            for(int j=0; j<ptr[i].size(); j++)
+            {
+                cout<<ptr[i][j]<<" ";
+            }
+            cout<<endl;
+        }
+    }
+    return 0;
+}
+// } Driver Code Ends
