@@ -1,0 +1,65 @@
+## NQueens
+
+https://leetcode.com/problems/n-queens/
+
+class Solution {
+public:
+    vector<vector<string>> ans1;
+
+    bool isValid(int row, int col, int n, vector<string>  matrix){
+        int duprow=row;
+        int dupcol=col;
+        while(dupcol!=-1){
+            if(matrix[duprow][dupcol]=='Q'){
+                return false;
+            }
+            dupcol--;
+        }
+         duprow=row;
+         dupcol=col;
+        while(dupcol>=0 && duprow>=0){
+            if(matrix[duprow][dupcol]=='Q'){
+                return false;
+            }
+            duprow--;
+            dupcol--;
+        }
+         duprow=row;
+         dupcol=col;
+        while(dupcol>=0 && duprow<n){
+            if(matrix[duprow][dupcol]=='Q'){
+                return false;
+            }
+            duprow++;
+            dupcol--;
+        }
+        return true;
+
+
+    }
+    void helper(int col, vector<string> matrix, int n){
+        if(col==n){
+            ans1.push_back(matrix);
+            return;
+        }
+        for(int i=0;i<n;i++){
+            if(isValid(i,col,n,matrix)){
+                cout<<i<<","<<col<<endl;
+                matrix[i][col]='Q';
+                helper(col+1,matrix,n);
+                matrix[i][col]='.';
+            }
+        }
+    }
+
+
+
+    vector<vector<string>> solveNQueens(int n) {
+        vector<string> ans(n,string(n,'.'));
+        
+        helper(0,ans,n);
+
+        
+        return ans1;
+    }
+};
